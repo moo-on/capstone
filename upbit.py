@@ -11,7 +11,7 @@ def get_target_price(ticker):
     df = pyupbit.get_ohlcv(ticker)
     yesterday = df.iloc[-2]
 
-    today_open = yesterday['clsoe']
+    today_open = yesterday['close']
     yesterday_high = yesterday['high']
     yesterday_low = yesterday['low']
     target = today_open + (yesterday_high - yesterday_low) * 0.5
@@ -36,22 +36,22 @@ def get_yesterday_ma5(ticker):
 
 now = datetime.datetime.now()
 mid = datetime.datetime(now.year, now.month, now.day) + datetime.timedelta(1)
-ma5 = get_yesterday_ma5("BTC")
-target_price = get_target_price("BTC")
+ma5 = get_yesterday_ma5("KRW-BTC")
+target_price = get_target_price("KRW-BTC")
 
 #매수 매도 시도
 while True:
     try:
         now = datetime.datetime.now()
-        if mid < now < mid + datetime.delta(10):
-            target_price = get_target_price("BTC")
+        if mid < now < mid + datetime.timedelta(seconds=10):
+            target_price = get_target_price("KRW-BTC")
             mid = datetime.datetime(now.year, now.month, now.day) + datetime.timedelta(1)
-            ma5 = get_yesterday_ma5("BTC")
-            sell_crypto_currency("BTC")
+            ma5 = get_yesterday_ma5("KRW-BTC")
+            sell_crypto_currency("KRW-BTC")
 
-        current_price = pyupbit.get_current_price("BTC")
-        if current_price > target_price and (current_price > ma5):
-            buy_crypto_currency("BTC")
+        current_price = pyupbit.get_current_price("KRW-BTC")
+        if (current_price > target_price) and (current_price > ma5):
+            buy_crypto_currency("KRW-BTC")
     except:
         print("에러발생")
     time.sleep(1)
