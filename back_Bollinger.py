@@ -4,8 +4,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 df = pybithumb.get_ohlcv("BTC")
-df = df['2020']
-
 
 
 df['MA20'] = df['close'].rolling(window=20).mean()
