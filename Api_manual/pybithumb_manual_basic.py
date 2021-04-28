@@ -12,7 +12,7 @@ detail = pybithumb.get_market_detail("BTC") #저가 고가 거래금액 거래�
 orderbook = pybithumb.get_orderbook("BTC")
 # bids매수호가  ask매도호가
 
-bids = orderbook['bids'] # quantity, price
+bids = orderbook['bids'] # quantity, price #호가
 
 all = pybithumb.get_current_price('ALL') # 211pg
 for k,v in all.items():
