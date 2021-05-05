@@ -30,13 +30,13 @@ df['MFI10'] = 100 - 100 / (1 + df['MFR'])
 
 for i in range(len(df.close)-1):
     if df.buy.values[i] == 0:                       # 살 수 있는지 확인음 | 0일 경우 사고, 1일 경우 팔다.
-        if df.close.values[i] < df.lower.values[i]:
+        if df.low.values[i] < df.lower.values[i]:
             df.buyTarget.values[i] = df.close.values[i]
             df.buy.values[i+1] = 1
         else:
             df.buyTarget.values[i] = 0
     else:
-        if df.close.values[i] > df.upper.values[i]:
+        if df.high.values[i] > df.upper.values[i]:
             df.buyTarget.values[i] = df.buyTarget.values[i-1]
             df.sellTarget.values[i] = df.close.values[i]
             df.buy.values[i+1] = 0
@@ -55,3 +55,8 @@ print("MDD: ", df['dd'].max())
 print("HPR: ", df['hpr'][-2])
 
 df.to_excel("larry_ma_j.xlsx")
+
+'''
+MDD:  74.7648572018315
+HPR:  0.29956652570136
+'''
