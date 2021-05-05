@@ -1,8 +1,7 @@
-#볼린저 밴드 추세추종
+#볼린저밴드 추세추종 + 변동성 전략
 import pybithumb
 import numpy as np
 import datetime
-import matplotlib.pyplot as plt
 
 df = pybithumb.get_ohlcv("BTC")
 df = df[df.index >= datetime.datetime(2017,10,1)]
@@ -18,6 +17,8 @@ df['NMF'] = 0
 df['buy'] = 0
 df['buyTarget'] = 0
 df['sellTarget'] = 0
+df['range'] = (df['high'] - df['low']) * 0.1
+df['target'] = df['open'] + df['range'].shift(1)
 
 for i in range(len(df.close)-1):
     if df.TP.values[i] < df.TP.values[i+1]:
@@ -29,40 +30,10 @@ for i in range(len(df.close)-1):
 df['MFR'] = df.PMF.rolling(window=10).sum() / df.NMF.rolling(window=10).sum()
 df['MFI10'] = 100 - 100 / (1 + df['MFR'])
 
-# 그래프
-plt.figure(figsize=(9,8))
-plt.subplot(2, 1, 1)
-plt.title('BitCoin')
-plt.plot(df.index, df['close'], color='#0000ff', label='Close')
-plt.plot(df.index, df['upper'], 'r--', label ='Upper band')
-plt.plot(df.index, df['MA20'], 'k--', label='Moving average 20')
-plt.plot(df.index, df['lower'], 'c--', label ='Lower band')
-plt.fill_between(df.index, df['upper'], df['lower'], color='0.9')
-for i in range(len(df.close)):
-    if df.PB.values[i] > 0.8 and df.MFI10.values[i] > 80:
-        plt.plot(df.index.values[i], df.close.values[i], 'r^')
-    elif df.PB.values[i] < 0.2 and df.MFI10.values[i] < 20:
-        plt.plot(df.index.values[i], df.close.values[i], 'bv')
-plt.legend(loc='best')
-
-plt.subplot(2, 1, 2)
-plt.plot(df.index, df['PB'] * 100, 'b', label='%B x 100')
-plt.plot(df.index, df['MFI10'], 'g--', label='MFI(10 day)')
-plt.yticks([-20, 0, 20, 40, 60, 80, 100, 120])
-for i in range(len(df.close)):
-    if df.PB.values[i] > 0.8 and df.MFI10.values[i] > 80:
-        plt.plot(df.index.values[i], 0, 'r^')
-    elif df.PB.values[i] < 0.2 and df.MFI10.values[i] < 20:
-        plt.plot(df.index.values[i], 0, 'bv')
-plt.grid(True)
-plt.legend(loc='best')
-plt.show()
-# 여기까지
-
 for i in range(len(df.close)-1):
     if df.buy.values[i] == 0:
-        if df.PB.values[i] > 0.7 and df.MFI10.values[i] > 70:
-            df.buyTarget.values[i] = df.close.values[i]
+        if df.PB.values[i] > 0.7 and df.MFI10.values[i] > 70 and df.high.values[i] > df.target.values[i]:
+            df.buyTarget.values[i] = df.target.values[i]
             df.buy.values[i+1] = 1
         else:
             df.buyTarget.values[i] = 0
@@ -85,4 +56,4 @@ df['dd'] = (df['hpr'].cummax() - df['hpr']) / df['hpr'].cummax() * 100
 print("MDD: ", df['dd'].max())
 print("HPR: ", df['hpr'][-2])
 
-df.to_excel("larry_ma_TrendFollowing.xlsx")
+df.to_excel("larry_ma_variance.xlsx")
