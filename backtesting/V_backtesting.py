@@ -4,20 +4,23 @@ import datetime
 
 df = pybithumb.get_ohlcv("BTC")
 df = df[df.index >= datetime.datetime(2017,10,1)]
-fee = 0.0032
+
 
 def get_ror_V(k):
+    fee = 0.0032
     df['range'] = (df['high'] - df['low']) * k
     df['target'] = df['open'] + df['range'].shift(1)
     df['ror'] = np.where(df['high'] > df['target'], df['close'] / df['target'] - fee, 1)
     ror = df['ror'].cumprod()[-2]
     return ror
 
-for k in np.arange(0.1, 1.0, 0.1):
-    ror = get_ror_V(k)
-    print("%.1f " % (k))
-    print(" %f" % (ror))
+def find_k(function):
+    for k in np.arange(0.1, 1.0, 0.1):
+        ror = function(k)
+        print("%.1f " % (k))
+        print(" %f" % (ror))
 
+find_k(get_ror_V)
 '''
 전체기간 : 0.8
 상승장 : 0.1, 0.2
