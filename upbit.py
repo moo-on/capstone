@@ -7,6 +7,7 @@ secret_key = "A87jhQhVJETu397ab0bQFgcxxG5wz4pV1oA3lC4l"
 
 upbit = pyupbit.Upbit(access_key, secret_key)
 
+#목표가 계산하기
 def get_target_price(ticker):
     df = pyupbit.get_ohlcv(ticker)
     yesterday = df.iloc[-2]
@@ -28,6 +29,7 @@ def sell_crypto_currency(ticker):
     unit = upbit.get_balance(ticker)[0]
     upbit.sell_market_order(ticker, unit)
 
+#이동평균 5일 단위
 def get_yesterday_ma5(ticker):
     df = pyupbit.get_ohlcv(ticker)
     close = df['close']
