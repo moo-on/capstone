@@ -2,7 +2,6 @@
 import pybithumb
 import numpy as np
 import datetime
-import matplotlib.pyplot as plt
 
 df = pybithumb.get_ohlcv("BTC")
 df = df[df.index >= datetime.datetime(2017,10,1)]
@@ -49,3 +48,8 @@ print("MDD: ", df['dd'].max())
 print("HPR: ", df['hpr'][-2])
 
 df.to_excel("larry_ma_Reversals.xlsx")
+
+'''
+MDD:  4.961350210970463
+HPR:  1.372779330542966
+'''
