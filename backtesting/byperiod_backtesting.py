@@ -3,7 +3,6 @@ sys.path.insert(0, 'C:/Users/Jun/PycharmProjects/capstone/backtesting')
 import pybithumb
 import numpy as np
 import datetime
-import V_MA_backtesting as M
 import copy
 
 
@@ -24,31 +23,21 @@ mid =[[datetime.datetime(2018,4,21),datetime.datetime(2018,11,13)],
 
 periods = [up] + [down] + [mid]
 
-def by_period(periods, function, find_hyperparameter):
-    for period in periods:
-        for lst_ in period:
-            for lst in lst_:
-                df = df_ori[(df_ori.index >= lst[0]) & (df_ori.index <= lst[1])]
-                M.find_hyperparameter(function)
-                print("_____________________")
-
-def period_df(periods,function):
-    for period in periods:
-        for lst in period:
-            print(lst[0],"~~",lst[1])
-            df = df_ori[(df_ori.index >= lst[0]) & (df_ori.index <= lst[1])]
+def period_df(n):
+   if n == 1: return df_ori[(df_ori.index >= up[0][0]) & (df_ori.index <= up[0][1])]
+   if n == 2: return df_ori[(df_ori.index >= up[1][0]) & (df_ori.index <= up[1][1])]
+   if n == 3: return df_ori[(df_ori.index >= up[2][0]) & (df_ori.index <= up[2][1])]
+   if n == 4: return df_ori[(df_ori.index >= down[0][0]) & (df_ori.index <= down[0][1])]
+   if n == 5: return df_ori[(df_ori.index >= down[1][0]) & (df_ori.index <= down[1][1])]
+   if n == 6: return df_ori[(df_ori.index >= down[2][0]) & (df_ori.index <= down[2][1])]
+   if n == 7: return df_ori[(df_ori.index >= mid[0][0]) & (df_ori.index <= mid[0][1])]
+   if n == 8: return df_ori[(df_ori.index >= mid[1][0]) & (df_ori.index <= mid[1][1])]
+   if n == 9: return df_ori[(df_ori.index >= mid[2][0]) & (df_ori.index <= mid[2][1])]
+   else : return 'error'
 
 
 
-by_period(periods, M.get_ror_V_MA ,M.find_k)
 
-
-df_lst = []
-for period in periods:
-    for lst in period:
-        print(lst[0],"~~",lst[1])
-        df = df_ori[(df_ori.index >= lst[0]) & (df_ori.index <= lst[1])]
-        df_lst.append(df)
 
 
 
