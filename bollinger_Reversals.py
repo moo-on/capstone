@@ -1,3 +1,4 @@
+#볼린저밴드 반전 매매기법
 import pybithumb
 import numpy as np
 import datetime

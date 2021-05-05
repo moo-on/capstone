@@ -1,3 +1,4 @@
+#볼린저 밴드 밑에서 사서 위에서 팔기
 import pybithumb
 import numpy as np
 import datetime

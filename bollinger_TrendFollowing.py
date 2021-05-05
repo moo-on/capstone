@@ -1,3 +1,4 @@
+#볼린저 밴드 추세추종
 import pybithumb
 import numpy as np
 import datetime

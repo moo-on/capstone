@@ -1,3 +1,4 @@
+#볼린저밴드 추세추종 + 변동성 전략
 import pybithumb
 import numpy as np
 import datetime
