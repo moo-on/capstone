@@ -1,4 +1,4 @@
-#볼린저 밴드 추세추종
+#볼린저 밴드 추세추종 기
 import pybithumb
 import numpy as np
 import datetime
@@ -30,13 +30,13 @@ df['MFI10'] = 100 - 100 / (1 + df['MFR'])
 
 for i in range(len(df.close)-1):
     if df.buy.values[i] == 0:
-        if df.PB.values[i] > 0.7 and df.MFI10.values[i] > 70:
+        if df.PB.values[i] > 0.7 and df.MFI10.values[i] > 70:   #%b가 0.7보다 크고 10일 기준 MFI가 70보다 크면
             df.buyTarget.values[i] = df.close.values[i]
             df.buy.values[i+1] = 1
         else:
             df.buyTarget.values[i] = 0
     else:
-        if df.PB.values[i] < 0.3 and df.MFI10.values[i] < 30:
+        if df.PB.values[i] < 0.3 and df.MFI10.values[i] < 30:   #%b가 0.7보다 작고 10일 기준 MFI가 30보다 작으면
             df.buyTarget.values[i] = df.buyTarget.values[i-1]
             df.sellTarget.values[i] = df.close.values[i]
             df.buy.values[i+1] = 0
@@ -55,3 +55,8 @@ print("MDD: ", df['dd'].max())
 print("HPR: ", df['hpr'][-2])
 
 df.to_excel("larry_ma_TrendFollowing.xlsx")
+
+'''
+MDD:  22.281315088834504
+HPR:  22.218279342102626
+'''
