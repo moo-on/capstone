@@ -54,7 +54,7 @@ df['dd'] = (df['hpr'].cummax() - df['hpr']) / df['hpr'].cummax() * 100
 print("MDD: ", df['dd'].max())
 print("HPR: ", df['hpr'][-2])
 
-df.to_excel("larry_ma_j.xlsx")
+df.to_excel("bollinger/larry_ma_j.xlsx")
 
 '''
 MDD:  74.7648572018315

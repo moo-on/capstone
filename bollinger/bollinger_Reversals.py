@@ -13,7 +13,8 @@ df['lower'] = df['MA20'] - (df['stddev'] * 2)
 df['PB'] = (df['close'] - df['lower']) / (df['upper'] - df['lower'])
 
 df['II'] = (2*df['close']-df['high']-df['low'])/(df['high']-df['low'])*df['volume']
-df['IIP21'] = df['II'].rolling(window=21).sum()/df['volume'].rolling(window=21).sum()*100   #21일 기간 동안의 II합을 21일 기간 동안의 거래량 합으로 나누어 표준화한 것
+df['IIP21'] = df['II'].rolling(window=21).sum()/df['volume'].rolling(window=21).sum()*100
+#21일 기간 동안의 II합을 21일 기간 동안의 거래량 합으로 나누어 표준화한 것
 df = df.dropna()
 
 df['buy'] = 0
@@ -47,7 +48,7 @@ df['dd'] = (df['hpr'].cummax() - df['hpr']) / df['hpr'].cummax() * 100
 print("MDD: ", df['dd'].max())
 print("HPR: ", df['hpr'][-2])
 
-df.to_excel("larry_ma_Reversals.xlsx")
+#df.to_excel("bollinger/larry_ma_Reversals.xlsx")
 
 '''
 MDD:  4.961350210970463
