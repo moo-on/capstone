@@ -27,4 +27,6 @@ find_k(get_ror_V)
 하락장 : 0.5, 0.7
 횡보장 : 0.9
 '''
+import pandas as pd
+pd.read_csv('file_name.csv',encoding='euc-kr')
 
