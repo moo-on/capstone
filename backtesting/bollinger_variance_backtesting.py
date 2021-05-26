@@ -32,8 +32,7 @@ def get_ror_V_MA(k):
 
     for i in range(len(df.close) - 1):
         if df.buy.values[i] == 0:
-            if df.PB.values[i] > (k * 0.1) and df.MFI10.values[i] > (k * 10) and df.high.values[i] > df.target.values[
-                i]:
+            if df.PB.values[i] > (k * 0.1) and df.MFI10.values[i] > (k * 10) and df.high.values[i] > df.target.values[i]:
                 df.buyTarget.values[i] = df.close.values[i]
                 df.buy.values[i + 1] = 1
             else:

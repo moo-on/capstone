@@ -2,9 +2,9 @@ import pybithumb
 import numpy as np
 import datetime
 
-df1 = pybithumb.get_ohlcv("BTC")
-df2 = df1[df1.index >= datetime.datetime(2017,10,1)]
-df = df2[df2.index <= datetime.datetime(2018,1,14)]
+df = pybithumb.get_ohlcv("BTC")
+#df2 = df1[df1.index >= datetime.datetime(2017,10,1)]
+#df = df2[df2.index <= datetime.datetime(2018,1,14)]
 
 df['ma5'] = df['close'].rolling(5).mean().shift(1)
 df['range'] = (df['high'] - df['low']) * 0.6
@@ -20,4 +20,4 @@ df['hpr'] = df['ror'].cumprod()
 df['dd'] = (df['hpr'].cummax() - df['hpr']) / df['hpr'].cummax() * 100
 print("MDD: ", df['dd'].max())
 print("HPR: ", df['hpr'][-2])
-df.to_excel("larry_ma.xlsx")
+#df.to_excel("larry_ma.xlsx")

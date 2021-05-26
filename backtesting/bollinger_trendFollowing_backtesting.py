@@ -1,9 +1,7 @@
 #볼린저 밴드 추세추종 기법
 import sys
 sys.path.insert(0, '/Users/I/capstone/capstone/backtesting')
-import pybithumb
 import numpy as np
-import datetime
 import byperiod_backtesting as bp
 
 
@@ -39,7 +37,7 @@ def get_ror_V_MA(k):
                 df.buyTarget.values[i] = 0
         else:
             if df.PB.values[i] < ((10 - k) * 0.1) and df.MFI10.values[i] < (
-                    (10 - k) * 10):  # %b가 0.7보다 작고 10일 기준 MFI가 30보다 작으면
+                    (10 - k) * 10):                                             # %b가 0.7보다 작고 10일 기준 MFI가 30보다 작으면
                 df.buyTarget.values[i] = df.buyTarget.values[i - 1]
                 df.sellTarget.values[i] = df.close.values[i]
                 df.buy.values[i + 1] = 0
@@ -61,9 +59,9 @@ def get_ror_V_MA(k):
     return df['hpr'][-2]
 
 for j in range(1,10):
-    df = bp.period_df(j).copy() # df1 ~ df9까지
+    df = bp.period_df(j).copy()                             # df1 ~ df9까지
     print('period : ', j)
-    for k in np.arange(6, 10, 0.5): # k 값 세팅
+    for k in np.arange(6, 10, 0.5):                         # k 값 세팅
         print("%.1f " % (k))
         ror = get_ror_V_MA(k)
         print("")

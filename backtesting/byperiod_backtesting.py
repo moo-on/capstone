@@ -1,7 +1,6 @@
 import sys
 sys.path.insert(0, '/Users/I/capstone/capstone/backtesting')
 import pybithumb
-import numpy as np
 import datetime
 import copy
 
